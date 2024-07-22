@@ -4,11 +4,17 @@ import matter from 'gray-matter'
 import {remark} from 'remark'
 import html from 'remark-html'
 
+interface PostData {
+    id: string;
+    title: string;
+    date: string;
+}
+
 //确定目录
 const postsDirectory = path.join(process.cwd(),"posts")
 
 //一个模块只能由一个默认导出
-export default function getSortPostData(){
+export default function getSortPostData(): PostData[]{
     //获取目录下所有md文件
     const fileNames = fs.readdirSync(postsDirectory)
     //遍历目录下所有md文件
@@ -24,7 +30,7 @@ export default function getSortPostData(){
         const matterResult = matter(fileContenes)
         return{
             id,
-            ...matterResult.data
+            ...(matterResult.data as { title: string; date: string }),
         }
     })
     return allPostsData.sort((a,b) => {
@@ -61,7 +67,7 @@ export function getAllPostIds(){
     })
 }
 
-export async function getPostData(id){
+export async function getPostData(id:string){
     const fullPath = path.join(postsDirectory,`${id}.md`)
     const fileContenes = fs.readFileSync(fullPath,'utf-8')
     const matterResult = matter(fileContenes)

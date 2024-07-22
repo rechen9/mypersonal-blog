@@ -12,8 +12,12 @@ interface PostData {
   }
   
   interface PostProps {
-    postData: PostData;
+    postData: PostData; // postData 是一个包含文章数据的对象
   }
+
+interface Params{
+    id : string;
+}
 
 export default function Post({postData}:PostProps){
     return (
@@ -42,7 +46,9 @@ export async function getStaticPaths() {
     }
 }
 
-export async function getStaticProps({params}){
+//params 是 context 的一部分：在 getStaticProps 和 getServerSideProps 中，params 是 context 对象中的一个属性。它提供了与动态路由相关的参数值。
+export async function getStaticProps(context: { params: Params }){
+    const params = context.params;
     const postData = await getPostData(params.id)
     return {
         props : {
