@@ -2,12 +2,17 @@ import styles from './layout.module.css'
 import Link from 'next/link';
 import utils from '../styles/utils.module.css'
 import Head from 'next/head';
+import React, { ReactNode } from 'react';
 
 const name = 'ReChen'
 export const siteTitle = 'ReChen blog'
 
+interface LayoutProps {
+  children: ReactNode;
+  home?: boolean;
+}
 
-export default function Layout({ children , home }) {
+export default function Layout({ children , home }:LayoutProps) {
     return (
       <div className={styles.container}>
       <Head>

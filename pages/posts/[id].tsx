@@ -4,7 +4,18 @@ import Head from "next/head";
 import Date from "@/components/date";
 import utils from "@/styles/utils.module.css"
 
-export default function Post({postData}){
+interface PostData {
+    id: string;
+    title: string;
+    date: string;
+    contentHtml: string;
+  }
+  
+  interface PostProps {
+    postData: PostData;
+  }
+
+export default function Post({postData}:PostProps){
     return (
         <Layout>
             <Head>
