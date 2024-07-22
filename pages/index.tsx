@@ -6,7 +6,19 @@ import utils from "../styles/utils.module.css"
 import get from "../lib/posts"
 import Date from "@/components/date";
 
-export default function Home({allPostsData}){
+// 定义 Post 类型
+interface Post {
+  id: string;
+  date: string;
+  title: string;
+}
+
+// 定义 Home 组件的 props 类型
+interface HomeProps {
+  allPostsData: Post[];
+}
+
+export default function Home({allPostsData}:HomeProps){
   return (
     <Layout home>
       <Head>
